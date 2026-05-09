@@ -6,18 +6,23 @@ phases:
       java: corretto21
       nodejs: 20
 
-  build:
+  pre_build:
     commands:
-      - echo Building React Frontend
+      - echo Installing frontend dependencies
       - cd frontend
       - npm install
+
+  build:
+    commands:
+      - echo Building React app
       - npm run build
 
-      - echo Building Spring Boot Backend
+      - echo Building Spring Boot backend
       - cd ../demo
       - chmod +x mvnw
       - ./mvnw clean package -DskipTests
 
 artifacts:
   files:
-    - '**/*'
+    - demo/target/demo-0.0.1-SNAPSHOT.jar
+    - frontend/build/**/*
