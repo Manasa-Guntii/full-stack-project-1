@@ -4,27 +4,15 @@ phases:
   install:
     runtime-versions:
       java: corretto21
-      nodejs: 20
-
-  pre_build:
-    commands:
-      - echo Installing frontend dependencies
-      - cd frontend
-      - npm install
-      - cd ..
 
   build:
     commands:
-      - echo Building React app
-      - cd frontend
-      - npm run build
-      - cd ..
-
-      - echo Building Spring Boot backend
+      - echo "Building Spring Boot app"
       - cd demo
       - mvn clean package -DskipTests
 
 artifacts:
   files:
+    - appspec.yml
+    - scripts/**/*
     - demo/target/demo-0.0.1-SNAPSHOT.jar
-    - frontend/build/**/*

@@ -7,7 +7,12 @@ files:
     destination: /home/ec2-user/app
 
 hooks:
+  BeforeInstall:
+    - location: scripts/cleanup.sh
+      timeout: 300
+      runas: ec2-user
+
   AfterInstall:
     - location: scripts/deploy.sh
-      runas: ec2-user
       timeout: 300
+      runas: ec2-user
