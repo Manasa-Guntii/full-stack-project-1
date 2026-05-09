@@ -9,19 +9,16 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "*")
 public class UserController {
 
     @Autowired
     private UserRepository repo;
 
-    // SIGNUP
     @PostMapping("/signup")
     public User signup(@RequestBody User user) {
         return repo.save(user);
     }
 
-    // LOGIN
     @PostMapping("/login")
     public User login(@RequestBody User user) {
         User db = repo.findByEmail(user.getEmail());
@@ -31,13 +28,11 @@ public class UserController {
         return null;
     }
 
-    // GET ALL USERS (Dashboard)
     @GetMapping("/users")
     public List<User> getAll() {
         return repo.findAll();
     }
 
-    // UPDATE USER
     @PutMapping("/update/{id}")
     public User update(@PathVariable String id, @RequestBody User user) {
         User existing = repo.findById(id).orElse(null);
@@ -51,7 +46,6 @@ public class UserController {
         return null;
     }
 
-    // DELETE USER
     @DeleteMapping("/delete/{id}")
     public String delete(@PathVariable String id) {
         repo.deleteById(id);

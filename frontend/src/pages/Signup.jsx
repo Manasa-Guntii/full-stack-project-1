@@ -3,8 +3,9 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function Signup() {
-
   const nav = useNavigate();
+
+  const API = "http://16.112.122.5:8080/api";
 
   const [user, setUser] = useState({
     name: "",
@@ -13,30 +14,54 @@ function Signup() {
   });
 
   const signup = async () => {
-    await axios.post("http://localhost:8080/api/signup", user);
-    alert("Signup Success");
-    nav("/login");
+    try {
+      await axios.post(`${API}/signup`, user);
+      alert("Signup Success");
+      nav("/login");
+    } catch (error) {
+      console.log("Signup Error:", error);
+      alert("Signup Failed or Server Error");
+    }
   };
 
   return (
-    <div>
+    <div style={{ textAlign: "center", marginTop: "50px" }}>
       <h2>Signup</h2>
 
-      <input placeholder="Name"
-        onChange={(e) => setUser({ ...user, name: e.target.value })} />
+      <input
+        placeholder="Name"
+        value={user.name}
+        onChange={(e) => setUser({ ...user, name: e.target.value })}
+        style={{ display: "block", margin: "10px auto", padding: "8px" }}
+      />
 
-      <input placeholder="Email"
-        onChange={(e) => setUser({ ...user, email: e.target.value })} />
+      <input
+        placeholder="Email"
+        value={user.email}
+        onChange={(e) => setUser({ ...user, email: e.target.value })}
+        style={{ display: "block", margin: "10px auto", padding: "8px" }}
+      />
 
-      <input placeholder="Password"
+      <input
+        placeholder="Password"
         type="password"
-        onChange={(e) => setUser({ ...user, password: e.target.value })} />
+        value={user.password}
+        onChange={(e) => setUser({ ...user, password: e.target.value })}
+        style={{ display: "block", margin: "10px auto", padding: "8px" }}
+      />
 
-      <button onClick={signup}>Signup</button>
+      <button onClick={signup} style={{ padding: "8px 20px" }}>
+        Signup
+      </button>
 
-      <button onClick={() => nav("/login")}>
-  Already user? Login
-</button>
+      <br />
+
+      <button
+        onClick={() => nav("/login")}
+        style={{ marginTop: "10px", background: "transparent", border: "none", color: "blue" }}
+      >
+        Already user? Login
+      </button>
     </div>
   );
 }
