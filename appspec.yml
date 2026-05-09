@@ -1,5 +1,4 @@
 version: 0.0
-
 os: linux
 
 files:
@@ -9,5 +8,5 @@ files:
 hooks:
   AfterInstall:
     - location: scripts/deploy.sh
-      timeout: 300
       runas: ec2-user
+      timeout: 300
