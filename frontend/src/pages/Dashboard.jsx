@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 function Dashboard() {
   const nav = useNavigate();
 
-  const API = "http://16.112.122.5:8080/api";
+  const API = "https://api.revnix.co.in/api";
 
   const [users, setUsers] = useState([]);
   const [editUser, setEditUser] = useState({});
